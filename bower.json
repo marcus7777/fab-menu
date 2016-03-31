@@ -1,0 +1,17 @@
+{
+  "name": "fab-menu",
+  "version": "1.0.0",
+  "description": "makes FAB menu to give users options ",
+  "main": "fab-menu.html",
+  "keywords": [
+    "polymer",
+    "web-components"
+  ],
+  "dependencies": {
+    "polymer": "*",
+    "icon-icons": "PolymerElements/icon-icons",
+    "paper-fab": "PolymerElements/paper-fab#~1.2.0",
+    "paper-fab-transitions": "GabiAxel/paper-fab-transitions",
+    "balloon-css": "marcus7777/balloon-css"
+  }
+}
