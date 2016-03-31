@@ -23,7 +23,7 @@
     </style>
 
     <paper-fab-speed-dial class="bottom-right" direction="top">
-      <paper-fab data-balloon$="{{label}}" data-balloon-pos="left" icon="touch-app" class="dropdown-trigger"></paper-fab>
+      <paper-fab data-balloon$="{{label}}" data-balloon-pos="left" icon="{{icon}}" class="dropdown-trigger"></paper-fab>
       <div class="dropdown-content" style="overflow: visible;">
         <template is="dom-repeat" items="{{menu}}">
           <paper-fab data-balloon$="{{item.label}}" title="{{item.label}}" data-balloon-pos="left" mini icon="{{item.icon}}"></paper-fab>
@@ -37,10 +37,10 @@
   Polymer({
     is: "fab-menu",
     properties: {
-      label: {},
-      icon: {},
-      action: {},
-      menu: {}
+      label: String,
+      icon: String,
+      action: String,
+      menu: Array
     }
   })
 </script>
