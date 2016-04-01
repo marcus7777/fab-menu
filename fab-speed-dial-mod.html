@@ -1,38 +1,7 @@
 <link rel="import" href="../iron-flex-layout/classes/iron-flex-layout.html">
 <link rel="import" href="../iron-dropdown/iron-dropdown.html">
-<link rel="import" href="../neon-animation/neon-animations.html">
-<link rel="import" href="paper-square-grow-animation.html">
 
 <!--
-`paper-fab-speed-dial` builds on `iron-dropdown` to allow showing a list of
-speed dial actions when tapping on a floating action button.
-
-This element expects its content to contain two children: one with the class
-`dropdown-trigger` , which is initially visible and acts as the trigger, and
-another one with the class `dropdown-content` , which will be hidden until the
-trigger is tapped, and will contain the speed dial option elements.
-
-Example:
-
-    <paper-fab-speed-dial>
-      <paper-fab icon="add" class="dropdown-trigger"></paper-fab>
-      <div class="dropdown-content">
-        <paper-fab mini icon="star-border"></paper-fab>
-        <paper-fab mini icon="star-half"></paper-fab>
-        <paper-fab mini icon="star"></paper-fab>
-      </div>
-    </paper-fab-speed-dial>
-
-The `direction` property can be set to `top`, `bottom`, `left` or `right` to
-control the direction in which the options dropdown is expanded.
-
-### Styling
-
-The following custom properties and mixins are also available for styling:
-
-Custom property | Description | Default
-----------------|-------------|----------
-`--paper-fab-speed-dial-option` | Mixin applied to each option element | `{}`
 
 @hero hero.svg
 @demo demo/index.html
@@ -52,11 +21,11 @@ Custom property | Description | Default
         @apply(--paper-fab-speed-dial-option);
       }
     </style>
-    <content id="fabContainer" select=".dropdown-trigger"></content>
     <iron-dropdown
       id="dropdown"
       open-animation-config="[[openAnimationConfig]]"
       close-animation-config="[[closeAnimationConfig]]">
+      <content id="fabContainer" select=".dropdown-trigger"></content>
       <content id="contentContainer" select=".dropdown-content"></content>
     </iron-dropdown>
   </template>
@@ -73,7 +42,7 @@ Custom property | Description | Default
        */
       direction: {
         type: String,
-        value: 'bottom'
+        value: 'top'
       },
       /**
         * A pixel value for the distance of the first option fron the trigger
@@ -125,23 +94,22 @@ Custom property | Description | Default
     observers: [
       '_updateDropdown(direction, offset)'
     ],
-    ready: function() {
-
+    readyNot: function() {
       var fab = Polymer.dom(this.$.fabContainer).getDistributedNodes()[0];
       fab.addEventListener('tap', function() {
-        this.$.dropdown.open();
-      }.bind(this));
+        this.$.dropdown.open()
+      }.bind(this))
 
       var content = Polymer.dom(this.$.contentContainer).getDistributedNodes()[0];
       content.addEventListener('tap', function() {
-        this.$.dropdown.close();
-      }.bind(this));
+        this.$.dropdown.close()
+      }.bind(this))
     },
     /**
      * Show the speed dial options.
      */
     open: function() {
-      this.$.dropdown.open();
+      this.$.dropdown.open()
     },
     /**
      * Hide the speed dial options.
