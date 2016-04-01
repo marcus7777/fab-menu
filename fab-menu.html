@@ -20,10 +20,14 @@
         bottom: 10px;
         right: 10px;
       }
+      :host .vertical .dropdown-content {
+        @apply(--layout-vertical);
+      }
     </style>
-    <paper-fab on-tap="toggle" data-balloon$="{{label}}" data-balloon-pos="left" icon="{{_mainIcon}}" class="dropdown-trigger"></paper-fab>
-    <iron-dropdown opened="{{_up}}" id="dropdown" class="bottom-right vertical" vertical-align="bottom" horizontal-offset="0" vertical-offset="66">
-      <div class="dropdown-content" style="overflow: visible;">
+    
+    <paper-fab on-tap="toggle" data-balloon$="{{label}}" data-balloon-pos="left" icon="{{_mainIcon}}" class="bottom-right vertical"></paper-fab>
+    <iron-dropdown opened="{{_up}}" id="dropdown" class="vertical bottom-right" vertical-align="bottom" horizontal-offset="0" vertical-offset="66">
+      <div class="dropdown-content" style="overflow: visible">
         <template is="dom-repeat" items="{{menu}}">
           <paper-fab data-balloon$="{{item.label}}" title="{{item.label}}" data-balloon-pos="left" mini icon="{{item.icon}}"></paper-fab>
         </template>
@@ -45,7 +49,7 @@
       _mainIcon: {computed: "getMainIcon(icon, backIcon, _up)"},
     },
     toggle: function() {
-      if (this.$.dropdown.opened) {
+      if (!this.$.dropdown.opened) {
         this.$.dropdown.open()
       } else {
         this.$.dropdown.close()
