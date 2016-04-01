@@ -13,23 +13,19 @@
   <template>
     <style>
       :host {
-        display: inline-block
-      }
-      .bottom-right {
+        display: inline-block;
+        margin: 1em;
         position: absolute;
         bottom: 10px;
         right: 10px;
       }
-      :host .vertical .dropdown-content {
-        @apply(--layout-vertical);
-      }
     </style>
     
-    <paper-fab on-tap="toggle" data-balloon$="{{label}}" data-balloon-pos="left" icon="{{_mainIcon}}" class="bottom-right vertical"></paper-fab>
-    <iron-dropdown opened="{{_up}}" id="dropdown" class="vertical bottom-right" vertical-align="bottom" horizontal-offset="0" vertical-offset="66">
+    <paper-fab on-tap="toggle" data-balloon$="{{label}}" data-balloon-pos="left" icon="{{_mainIcon}}" class="vertical"></paper-fab>
+    <iron-dropdown opened="{{_up}}" id="dropdown" vertical-align="bottom" vertical-offset="66">
       <div class="dropdown-content" style="overflow: visible">
-        <template is="dom-repeat" items="{{menu}}">
-          <paper-fab data-balloon$="{{item.label}}" title="{{item.label}}" data-balloon-pos="left" mini icon="{{item.icon}}"></paper-fab>
+        <template is="dom-repeat" items="{{_menu}}">
+          <paper-fab index="{{index}}" data-balloon$="{{item.label}}" on-tap="openFab" title="{{item.label}}" data-balloon-pos="left" mini icon="{{item.icon}}"></paper-fab>
         </template>
       </div>
     </iron-dropdown>
@@ -45,12 +41,15 @@
       action: String,
       /* Array of {label:"the label", icon: "the icon", menu: []} */
       menu: {type: Array},
+      _menu: {type: Array, computed:"shownMenu(menu,_newMenu, _up)"},
+      _newMenu: {value: []}, 
       backIcon: String,
       _mainIcon: {computed: "getMainIcon(icon, backIcon, _up)"},
     },
     toggle: function() {
       if (!this.$.dropdown.opened) {
         this.$.dropdown.open()
+        this.set("_newMenu",[])
       } else {
         this.$.dropdown.close()
       }
@@ -61,6 +60,23 @@
       } else {
         return icon 
       }
+    },
+    shownMenu: function(menu,newMenu,up) {
+      if (up && newMenu.length > 0) {
+        return newMenu
+      } else {
+        return menu
+      }
+    },
+    openFab: function(e) {
+      var newMenu = this._menu[e.target.index || e.target.parentNode.index]
+      
+      if (newMenu.menu) {
+        this.set("_newMenu",newMenu.menu)
+      } else {
+        // TODO this.fire()
+      }     
+      debugger
     },
     debuggerer: function(a,b) {
       debugger
