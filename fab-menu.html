@@ -25,7 +25,7 @@
     <iron-dropdown opened="{{_up}}" id="dropdown" vertical-align="bottom" vertical-offset="66">
       <div class="dropdown-content" style="overflow: visible">
         <template is="dom-repeat" items="{{_menu}}">
-          <paper-fab index="{{index}}" data-balloon$="{{item.label}}" on-tap="openFab" title="{{item.label}}" data-balloon-pos="left" mini icon="{{item.icon}}"></paper-fab>
+          <paper-fab index="{{index}}" style="margin: 8px" data-balloon$="{{item.label}}" on-tap="openFab" title="{{item.label}}" data-balloon-pos="left" mini icon="{{item.icon}}"></paper-fab>
         </template>
       </div>
     </iron-dropdown>
@@ -69,14 +69,15 @@
       }
     },
     openFab: function(e) {
-      var newMenu = this._menu[e.target.index || e.target.parentNode.index]
-      
-      if (newMenu.menu) {
-        this.set("_newMenu",newMenu.menu)
-      } else {
-        // TODO this.fire()
-      }     
-      debugger
+      var theTarget = this._menu[e.target.index || e.target.parentNode.index]
+       
+      if (theTarget.hasOwnProperty("menu")) {
+        this.set("_newMenu", theTarget.menu)
+      }
+      if (theTarget.hasOwnProperty("menu")) {
+        this.fire()
+        debugger
+      }
     },
     debuggerer: function(a,b) {
       debugger
