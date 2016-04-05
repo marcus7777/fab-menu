@@ -37,7 +37,7 @@
     is: "fab-menu",
     properties: {
       label: {type: String, value:""},
-      backLabel: (type: String, value:"cancel")
+      backLabel: {type: String, value:"cancel"},
       _label: {type: Array, computed:"getlabel(label,backLabel, _up)"},
       icon: String,
       /* Array of {label:"the label", icon: "the icon", menu: [], fire: {type:"add", detail:"", options}} */
