@@ -21,7 +21,7 @@
       }
     </style>
     
-    <paper-fab on-tap="toggle" data-balloon$="{{label}}" data-balloon-pos="left" icon="{{_mainIcon}}" class="vertical"></paper-fab>
+    <paper-fab on-tap="toggle" data-balloon$="{{_label}}" data-balloon-pos="left" icon="{{_mainIcon}}" class="vertical"></paper-fab>
     <iron-dropdown opened="{{_up}}" id="dropdown" vertical-align="bottom" vertical-offset="66">
       <div class="dropdown-content" style="overflow: visible">
         <template is="dom-repeat" items="{{_menu}}">
@@ -36,7 +36,9 @@
   Polymer({
     is: "fab-menu",
     properties: {
-      label: {type: String},
+      label: {type: String, value:""},
+      backLabel: (type: String, value:"cancel")
+      _label: {type: Array, computed:"getlabel(label,backLabel, _up)"},
       icon: String,
       /* Array of {label:"the label", icon: "the icon", menu: [], fire: {type:"add", detail:"", options}} */
       menu: {type: Array},
@@ -58,6 +60,13 @@
         return backIcon 
       } else {
         return icon 
+      }
+    },
+    getlabel: function(label,backLabel,up) {
+      if (up) {
+        return backLabel
+      } else {
+        return label
       }
     },
     shownMenu: function(menu,newMenu,up) {
