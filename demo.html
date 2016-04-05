@@ -31,17 +31,17 @@ Polymer({
   properties: {
     menu:{ 
       value: [
-        {label:"delete",icon:"delete",fire:{type:"delete"},
+        {label:"Delete",icon:"delete",fire:{type:"delete"},
           menu:[{
-            label:"delete",
+            label:"Confirm Delete",
             icon:"delete",
             fire:{type:"delete",detail:"confirm"}
           }]
         },
-        {label:"edit",icon:"create",fire:{type:"edit"}},
-        {label:"add","icon":"add","menu":[
-          {label:"card",icon:"image:crop-portrait",fire:{type:"add",detail:"card"}},
-          {label:"deck",icon:"content-copy",fire:{type:"add",detail:"deck"}}
+        {label:"Edit",icon:"create",fire:{type:"edit"}},
+        {label:"Add","icon":"add","menu":[
+          {label:"Card",icon:"image:crop-portrait",fire:{type:"add",detail:"card"}},
+          {label:"Deck",icon:"content-copy",fire:{type:"add",detail:"deck"}}
         ]}
       ],
       type: Array
