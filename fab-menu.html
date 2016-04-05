@@ -38,8 +38,7 @@
     properties: {
       label: {type: String},
       icon: String,
-      action: String,
-      /* Array of {label:"the label", icon: "the icon", menu: []} */
+      /* Array of {label:"the label", icon: "the icon", menu: [], fire: {type:"add", detail:"", options}} */
       menu: {type: Array},
       _menu: {type: Array, computed:"shownMenu(menu,_newMenu, _up)"},
       _newMenu: {value: []}, 
@@ -70,17 +69,23 @@
     },
     openFab: function(e) {
       var theTarget = this._menu[e.target.index || e.target.parentNode.index]
-       
-      if (theTarget.hasOwnProperty("menu")) {
-        this.set("_newMenu", theTarget.menu)
+      var close = true
+
+      if (theTarget) { 
+        if (theTarget.hasOwnProperty("menu")) {
+          this.set("_newMenu", theTarget.menu)
+          close = false
+        }
+        if (theTarget.hasOwnProperty("fire")) {
+          var fireThis = theTarget.fire
+          this.fire(fireThis.type, fireThis.detail, fireThis.options)
+        } else {
+          close = false
+        }
+        if (close) {
+          this.$.dropdown.close()
+        }
       }
-      if (theTarget.hasOwnProperty("menu")) {
-        this.fire()
-        debugger
-      }
-    },
-    debuggerer: function(a,b) {
-      debugger
     }
   })
 </script>
