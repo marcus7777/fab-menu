@@ -23,19 +23,28 @@
     
     <paper-fab on-tap="toggle" data-balloon$="{{_label}}" data-balloon-pos="left" icon="{{_mainIcon}}" class="vertical"></paper-fab>
     <iron-dropdown opened="{{_up}}" id="dropdown" vertical-align="bottom" vertical-offset="66">
-      <div class="dropdown-content" style="overflow: visible">
+      <template is="dom-if" if="{{!keep}}">
+        <div class="dropdown-content" style="overflow: visible">
+          <template is="dom-repeat" items="{{_menu}}">
+            <paper-fab index="{{index}}" style="margin: 8px" data-balloon$="{{item.label}}" on-tap="openFab" title="{{item.label}}" data-balloon-pos="left" mini icon="{{item.icon}}"></paper-fab>
+          </template>
+        </div>
+      </template>
+    </iron-dropdown>
+    <template is="dom-if" if="{{keep}}">
+      <div class="keep-content" style="overflow: visible">
         <template is="dom-repeat" items="{{_menu}}">
           <paper-fab index="{{index}}" style="margin: 8px" data-balloon$="{{item.label}}" on-tap="openFab" title="{{item.label}}" data-balloon-pos="left" mini icon="{{item.icon}}"></paper-fab>
         </template>
       </div>
-    </iron-dropdown>
-
+    </template>
   </template>
 </dom-module>
 <script>
   Polymer({
     is: "fab-menu",
     properties: {
+      keep: {type: Boolean, value: false},
       label: {type: String, value:""},
       backLabel: {type: String, value:"cancel"},
       _label: {type: Array, computed:"getlabel(label,backLabel, _up)"},
@@ -59,19 +68,19 @@
     },
     getMainIcon: function(icon, backIcon, up) {
       if (up) {
-        return backIcon 
+        return backIcon
       } else {
-        return icon 
+        return icon
       }
     },
-    getlabel: function(label,backLabel,up) {
+    getlabel: function(label, backLabel, up) {
       if (up) {
         return backLabel
       } else {
         return label
       }
     },
-    shownMenu: function(menu,newMenu,up) {
+    shownMenu: function(menu, newMenu, up) {
       if (up && newMenu.length > 0) {
         return newMenu
       } else {
@@ -86,7 +95,11 @@
         if (theTarget.hasOwnProperty("menu")) {
           this.set("_newMenu", theTarget.menu)
           close = false
+          if (theTarget.hasOwnProperty("keep")) {
+            this.set("keep", theTarget.keep)
+          }
         }
+        
         if (theTarget.hasOwnProperty("fire")) {
           var fireThis = theTarget.fire
           this.fire(fireThis.type, fireThis.detail, fireThis.options)
