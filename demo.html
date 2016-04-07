@@ -31,13 +31,7 @@ Polymer({
   properties: {
     menu:{ 
       value: [
-        {label:"Delete",icon:"delete",keep:true,fire:{type:"delete"},
-          menu:[{
-            label:"Confirm Delete",
-            icon:"delete",
-            fire:{type:"delete",detail:"confirm"}
-          }]
-        },
+        {label:"Delete",icon:"delete",fire:{type:"delete"}},
         {label:"Edit",icon:"create",fire:{type:"edit"}},
         {label:"Add","icon":"add","menu":[
           {label:"Card",icon:"image:crop-portrait",fire:{type:"add",detail:"card"}},
