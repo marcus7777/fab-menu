@@ -23,21 +23,12 @@
     
     <paper-fab on-tap="toggle" data-balloon$="{{_label}}" data-balloon-pos="left" icon="{{_mainIcon}}" class="vertical"></paper-fab>
     <iron-dropdown opened="{{_up}}" id="dropdown" vertical-align="bottom" vertical-offset="66">
-      <template is="dom-if" if="{{!keep}}">
-        <div class="dropdown-content" style="overflow: visible">
-          <template is="dom-repeat" items="{{_menu}}">
-            <paper-fab index="{{index}}" style="margin: 8px" data-balloon$="{{item.label}}" on-tap="openFab" title="{{item.label}}" data-balloon-pos="left" mini icon="{{item.icon}}"></paper-fab>
-          </template>
-        </div>
-      </template>
-    </iron-dropdown>
-    <template is="dom-if" if="{{keep}}">
-      <div class="keep-content" style="overflow: visible">
+      <div class="dropdown-content" style="overflow: visible">
         <template is="dom-repeat" items="{{_menu}}">
           <paper-fab index="{{index}}" style="margin: 8px" data-balloon$="{{item.label}}" on-tap="openFab" title="{{item.label}}" data-balloon-pos="left" mini icon="{{item.icon}}"></paper-fab>
         </template>
       </div>
-    </template>
+    </iron-dropdown>
   </template>
 </dom-module>
 <script>
@@ -47,16 +38,16 @@
       keep: {type: Boolean, value: false},
       label: {type: String, value:""},
       backLabel: {type: String, value:"cancel"},
-      _label: {type: Array, computed:"getlabel(label,backLabel, _up)"},
+      _label: {type: Array, computed:"getlabel(label, backLabel, _up, keep)"},
       icon: String,
       /* 
        * Array of {label:"the label", icon: "the icon", menu: [], fire: {type:"add", detail:"add", options}} 
        */
       menu: {type: Array},
-      _menu: {type: Array, computed:"shownMenu(menu,_newMenu, _up)"},
+      _menu: {type: Array, computed:"shownMenu(menu,_newMenu, _up, keep)"},
       _newMenu: {value: []}, 
       backIcon: String,
-      _mainIcon: {computed: "getMainIcon(icon, backIcon, _up)"},
+      _mainIcon: {computed: "getMainIcon(icon, backIcon, _up, keep)"},
     },
     toggle: function() {
       if (!this.$.dropdown.opened) {
@@ -66,22 +57,22 @@
         this.$.dropdown.close()
       }
     },
-    getMainIcon: function(icon, backIcon, up) {
-      if (up) {
+    getMainIcon: function(icon, backIcon, up, keep) {
+      if (up || keep) {
         return backIcon
       } else {
         return icon
       }
     },
-    getlabel: function(label, backLabel, up) {
-      if (up) {
+    getlabel: function(label, backLabel, up, keep) {
+      if (up || keep) {
         return backLabel
       } else {
         return label
       }
     },
-    shownMenu: function(menu, newMenu, up) {
-      if (up && newMenu.length > 0) {
+    shownMenu: function(menu, newMenu, up, keep) {
+      if ((up && newMenu.length > 0) || keep) {
         return newMenu
       } else {
         return menu
@@ -95,9 +86,12 @@
         if (theTarget.hasOwnProperty("menu")) {
           this.set("_newMenu", theTarget.menu)
           close = false
-          if (theTarget.hasOwnProperty("keep")) {
-            this.set("keep", theTarget.keep)
-          }
+        }
+        
+        if (theTarget.hasOwnProperty("keep")) {
+          this.set("keep", theTarget.keep)
+        } else {
+          this.set("keep", false)
         }
         
         if (theTarget.hasOwnProperty("fire")) {
