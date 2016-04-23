@@ -8,8 +8,7 @@
     "web-components"
   ],
   "dependencies": {
-    "polymer": "*",
-    "icon-icons": "PolymerElements/icon-icons",
+    "iron-icons": "PolymerElements/iron-icons",
     "paper-fab": "PolymerElements/paper-fab#~1.2.0",
     "paper-fab-transitions": "GabiAxel/paper-fab-transitions",
     "balloon-css": "marcus7777/balloon-css"
