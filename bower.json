@@ -10,6 +10,7 @@
   "dependencies": {
     "iron-icons": "PolymerElements/iron-icons",
     "paper-fab": "PolymerElements/paper-fab#~1.2.0",
-    "balloon-css": "marcus7777/balloon-css"
+    "balloon-css": "marcus7777/balloon-css",
+    "iron-dropdown": "PolymerElements/iron-dropdown#687c86d2499c22f102963311fb517d326cd4ad60"
   }
 }
