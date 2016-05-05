@@ -11,6 +11,6 @@
     "iron-icons": "PolymerElements/iron-icons",
     "paper-fab": "PolymerElements/paper-fab#~1.2.0",
     "balloon-css": "marcus7777/balloon-css",
-    "iron-dropdown": "PolymerElements/iron-dropdown#0a939421c34744b7a22553b8c7106efccb3e63f0"
+    "iron-dropdown": "PolymerElements/iron-dropdown#fbd0bde2aefd25161b639314157d9914f378ac4e"
   }
 }
