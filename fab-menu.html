@@ -24,11 +24,11 @@
       }
     </style>
     
-    <paper-fab on-tap="toggle" data-balloon$="{{_label}}" data-balloon-pos="left" icon="{{_mainIcon}}" class="vertical"></paper-fab>
+    <paper-fab on-tap="toggle" disabled="[[disabled]]" data-balloon$="{{_label}}" data-balloon-pos="left" icon="{{_mainIcon}}" class="vertical"></paper-fab>
     <iron-dropdown on-hover="{{open}}" opened="{{_up}}" id="dropdown" style="top:inherit" vertical-align="bottom" vertical-offset="66">
       <div class="dropdown-content" style="overflow: visible">
         <template is="dom-repeat" items="{{_menu}}">
-          <paper-fab index="{{index}}" style="margin: 8px" data-balloon$="{{item.label}}" on-tap="openFab" title="{{item.label}}" data-balloon-pos="left" mini icon="{{item.icon}}"></paper-fab>
+          <paper-fab disabled="[[item.disabled]]" index="{{index}}" style="margin: 8px" data-balloon$="{{item.label}}" on-tap="openFab" title="{{item.label}}" data-balloon-pos="left" mini icon="{{item.icon}}"></paper-fab>
         </template>
       </div>
     </iron-dropdown>
